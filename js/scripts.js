@@ -100,6 +100,10 @@ function showContact(id) {
   $(".work-Email").html(contact.addrs.workEmail); //
   $(".personal-addr").html(contact.addrs.personalAddr); //
   $(".work-addr").html(contact.addrs.workAddr); //
+  // if (contact.addrs.workAddr === "") {
+  //   $("p").remove(":contains('Work Address:')");
+  //   console.log("hi");
+  // } 
   let buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" +  + contact.id + ">Delete</button>");
@@ -116,10 +120,7 @@ $(document).ready(function() {
     const inputtedWorkEmail = $("input#new-work-Email").val(); // 
     const inputtedPersonalAddr = $("input#new-personal-addr").val();//
     const inputtedWorkAddr = $("input#new-work-addr").val();//
-    if (inputtedWorkAddr === "") {
-    $("p").remove(":contains('Work Address:')");
-    console.log("hi");
-    }
+
     $("input#new-first-name").val("");
     $("input#new-last-name").val("");
     $("input#new-phone-number").val("");
