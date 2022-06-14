@@ -32,11 +32,39 @@ function Contact(firstName, lastName, phoneNumber) {
   this.firstName = firstName;
   this.lastName = lastName;
   this.phoneNumber = phoneNumber;
+  this.addrs = {};
+  this.currentId = 0; //
 }
 
 Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
 };
+
+Contact.prototype.addAddress = function(addr) {
+  this.addrs = addr;
+}
+
+// Contact.prototype.addAddress = function(addr) {
+//   addr.id = this.assignId();
+//   this.addrs[addr.id] = addr;
+// };
+
+// Contact.prototype.assignId = function() {
+//   this.currentId += 1;
+//   return this.currentId;
+// };
+
+function Address(personalEmail, workEmail, personalAddr, workAddr) {
+  this.personalEmail = personalEmail;
+  this.workEmail = workEmail;
+  this.personalAddr = personalAddr;
+  this.workAddr = workAddr;
+}
+
+// function Address(addr) {
+//   this.addr = addr;
+// }
+
 
 // User Interface Logic
 let addressBook = new AddressBook();
@@ -68,6 +96,10 @@ function showContact(id) {
   $(".first-name").html(contact.firstName);
   $(".last-name").html(contact.lastName);
   $(".phone-number").html(contact.phoneNumber);
+  $(".personal-Email").html(contact.addrs.personalEmail); //
+  $(".work-Email").html(contact.addrs.workEmail); //
+  $(".personal-addr").html(contact.addrs.personalAddr); //
+  $(".work-addr").html(contact.addrs.workAddr); //
   let buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" +  + contact.id + ">Delete</button>");
@@ -80,11 +112,25 @@ $(document).ready(function() {
     const inputtedFirstName = $("input#new-first-name").val();
     const inputtedLastName = $("input#new-last-name").val();
     const inputtedPhoneNumber = $("input#new-phone-number").val();
+    const inputtedPersonalEmail = $("input#new-personal-Email").val(); // 
+    const inputtedWorkEmail = $("input#new-work-Email").val(); // 
+    const inputtedPersonalAddr = $("input#new-personal-addr").val();//
+    const inputtedWorkAddr = $("input#new-work-addr").val();//
+    if (inputtedWorkAddr === "") {
+    $("p").remove(":contains('Work Address:')");
+    console.log("hi");
+    }
     $("input#new-first-name").val("");
     $("input#new-last-name").val("");
     $("input#new-phone-number").val("");
+    $("input#new-personal-Email").val(""); //
+    $("input#new-work-Email").val("");//
+    $("input#new-personal-addr").val("");//
+    $("input#new-work-addr").val("");//
     let newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber);
+    let newAddr = new Address (inputtedPersonalEmail, inputtedWorkEmail, inputtedPersonalAddr, inputtedWorkAddr)
     addressBook.addContact(newContact);
+    newContact.addAddress(newAddr);
     displayContactDetails(addressBook);
   });
 });
